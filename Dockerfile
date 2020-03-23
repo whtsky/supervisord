@@ -17,11 +17,8 @@ RUN apk --no-cache add ca-certificates
 
 WORKDIR /
 
-# Copy the Pre-built binary file from the previous stage
-COPY --from=builder /app/supervisord /
+COPY --from=builder /app/supervisord /usr/bin/
 
-# Expose port 8080 to the outside world
-EXPOSE 8080
+RUN supervisord version
 
-# Command to run the executable
-CMD ["/supervisord"]
+CMD ["supervisord"]

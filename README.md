@@ -1,4 +1,8 @@
-# Why this project?
+# supervisord
+
+[![Test](https://github.com/whtsky/supervisord/workflows/Test/badge.svg)](https://github.com/whtsky/supervisord/actions?query=workflow%3ATest)
+
+## Why this project?
 
 The python script supervisord is a powerful tool used by a lot of guys to manage the processes. I like the tool supervisord also.
 
@@ -6,16 +10,7 @@ But this tool requires us to install the big python environment. In some situati
 
 In this project, the supervisord is re-implemented in go-lang. The compiled supervisord is very suitable for these environment that the python is not installed.
 
-# Compile the supervisord
-
-Before compiling the supervisord, make sure the go-lang is installed in your environement.
-
-To compile the go-lang version supervisord, run following commands (required go 1.11+):
-
-1. local: `go build`
-1. linux: `env GOOS=linux GOARCH=amd64 go build -o supervisord_linux_amd64`
-
-# Run the supervisord
+## Run the supervisord
 
 After the supervisord binary is generated, create a supervisord configuration file and start the supervisord like below:
 
@@ -26,7 +21,7 @@ command = /your/program args
 $ supervisord -c supervisor.conf
 ```
 
-# Run as daemon
+## Run as daemon
 
 Add the inet interface in your configuration:
 
@@ -67,7 +62,7 @@ the URL of supervisord in the "supervisor ctl" subcommand is dected in following
 - check if -c option is present and the "serverurl" in "supervisorctl" section is present, use the "serverurl" in section "supervisorctl"
 - return http://localhost:9001
 
-# Check the version
+## Check the version
 
 command "version" will show the current supervisor version.
 
@@ -75,9 +70,9 @@ command "version" will show the current supervisor version.
 $ supervisord version
 ```
 
-# Supported features
+## Supported features
 
-## http server
+### http server
 
 the unix socket & TCP http server is supported. Basic auth is supported.
 
@@ -86,7 +81,7 @@ The TCP http server setting is in "inet_http_server" section.
 
 If both "inet_http_server" and "unix_http_server" is not configured in the configuration file, no http server will be started.
 
-## supervisord information
+### supervisord information
 
 Following parameters are supported in "supervisord" section:
 
@@ -99,7 +94,7 @@ Following parameters are supported in "supervisord" section:
 - minprocs
 - identifier
 
-## program
+### program
 
 the following features is supported in the "program:x" section:
 
@@ -129,7 +124,7 @@ the following features is supported in the "program:x" section:
 - killasgroup
 - restartpause
 
-### program extends
+#### program extends
 
 Following new keys are supported by the [program:xxx] section:
 
@@ -169,7 +164,7 @@ user = user_name:group_name
 - **restart_directory_monitor**: a path to be monitored for restarting purpose
 - **restart_file_pattern**: if a file is changed under restart_directory_monitor and the filename matches this pattern, the program will be restarted.
 
-## Set default parameters for program
+### Set default parameters for program
 
 A section "program-default" is added and the default parameters for programs can be set in this section. This can reduce some parameters for programs. For example both test1 and test2 program have exactly same environment variables VAR1 and VAR2, the environment variable is decalred like:
 
@@ -198,11 +193,11 @@ environment=VAR1="value1",VAR2="value2"
 
 ```
 
-## Group
+### Group
 
 the "group" section is supported and you can set "programs" item
 
-## Events
+### Events
 
 the supervisor 3.x defined events are supported partially. Now it supports following events:
 
@@ -212,7 +207,7 @@ the supervisor 3.x defined events are supported partially. Now it supports follo
 - tick related events
 - process log related events
 
-## Logs
+### Logs
 
 The logs ( field stdout_logfile, stderr_logfile ) from programs managed by the supervisord can be written to:
 
@@ -231,17 +226,17 @@ Mutiple log file can be configured for the stdout_logfile and stderr_logfile wit
 stdout_logfile = test.log, /dev/stdout
 ```
 
-# Usage from a Docker container
+## Usage from a Docker container
 
 supervisord is compiled inside a Docker image to be used directly inside another image, from the Docker Hub version.
 
 ```Dockerfile
 FROM debian:latest
-COPY --from=ochinchina/supervisord:latest /usr/local/bin/supervisord /usr/local/bin/supervisord
+COPY --from=whtsky/supervisord:latest /supervisord /usr/local/bin/supervisord
 CMD ["/usr/local/bin/supervisord"]
 ```
 
-# The MIT License (MIT)
+## The MIT License (MIT)
 
 Copyright (c) <year> <copyright holders>
 
