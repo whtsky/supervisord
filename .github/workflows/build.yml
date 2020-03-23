@@ -10,13 +10,14 @@ jobs:
           go-version: 1.14.x
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Install gox
-        run: go get github.com/mitchellh/gox
       - name: Build
-        run: gox
+        run: |
+          go get github.com/mitchellh/gox
+          export PATH="$(go env GOPATH)/bin:$PATH"
+          gox
+        env:
+          GOFLAGS: "-trimpath"
       - uses: actions/upload-artifact@v1
         with:
           name: dist
           path: supervisord_*
-        env:
-          GOFLAGS: "-trimpath"

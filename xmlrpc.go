@@ -106,8 +106,6 @@ func (p *XMLRPC) startHTTPServer(user string, password string, protocol string, 
 	mux.Handle("/supervisor/", newHTTPBasicAuth(user, password, supervisorRestHandler))
 	logtailHandler := NewLogtail(s).CreateHandler()
 	mux.Handle("/logtail/", newHTTPBasicAuth(user, password, logtailHandler))
-	webguiHandler := NewSupervisorWebgui(s).CreateHandler()
-	mux.Handle("/", newHTTPBasicAuth(user, password, webguiHandler))
 	listener, err := net.Listen(protocol, listenAddr)
 	if err == nil {
 		log.WithFields(log.Fields{"addr": listenAddr, "protocol": protocol}).Info("success to listen on address")

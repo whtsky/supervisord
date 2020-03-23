@@ -1,5 +1,3 @@
-[![Go Report Card](https://goreportcard.com/badge/github.com/whtsky/supervisord)](https://goreportcard.com/report/github.com/whtsky/supervisord)
-
 # Why this project?
 
 The python script supervisord is a powerful tool used by a lot of guys to manage the processes. I like the tool supervisord also.
@@ -232,12 +230,6 @@ Mutiple log file can be configured for the stdout_logfile and stderr_logfile wit
 ```ini
 stdout_logfile = test.log, /dev/stdout
 ```
-
-# Web GUI
-
-This supervisord has a default web GUI, you can start, stop & check the status of program from the GUI. Following picture shows the default web GUI:
-
-![alt text](https://github.com/whtsky/supervisord/blob/master/go_supervisord_gui.png)
 
 # Usage from a Docker container
 
