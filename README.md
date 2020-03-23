@@ -1,6 +1,7 @@
 # supervisord
 
 [![Test](https://github.com/whtsky/supervisord/workflows/Test/badge.svg)](https://github.com/whtsky/supervisord/actions?query=workflow%3ATest)
+[![Docker Image Size](https://img.shields.io/docker/image-size/whtsky/supervisord)](https://hub.docker.com/repository/docker/whtsky/supervisord)
 
 ## Why this project?
 

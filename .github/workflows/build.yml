@@ -15,9 +15,11 @@ jobs:
           go get github.com/mitchellh/gox
           export PATH="$(go env GOPATH)/bin:$PATH"
           gox -os="windows linux darwin" -osarch="!darwin/arm !darwin/arm64"
+          mkdir dist
+          mv supervisord_* dist/
         env:
           GOFLAGS: "-trimpath"
       - uses: actions/upload-artifact@v1
         with:
-          name: dist
-          path: supervisord_*
+          name: binaries
+          path: dist/
