@@ -1,4 +1,4 @@
-[![Go Report Card](https://goreportcard.com/badge/github.com/ochinchina/supervisord)](https://goreportcard.com/report/github.com/ochinchina/supervisord)
+[![Go Report Card](https://goreportcard.com/badge/github.com/whtsky/supervisord)](https://goreportcard.com/report/github.com/whtsky/supervisord)
 
 # Why this project?
 
@@ -27,16 +27,22 @@ $ cat supervisor.conf
 command = /your/program args
 $ supervisord -c supervisor.conf
 ```
+
 # Run as daemon
+
 Add the inet interface in your configuration:
+
 ```ini
 [inet_http_server]
 port=127.0.0.1:9001
 ```
+
 then run
+
 ```shell
 $ supervisord -c supervisor.conf -d
 ```
+
 In order to controll the daemon, you can use `$ supervisord ctl` subcommand, available commands are: `status`, `start`, `stop`, `shutdown`, `reload`.
 
 ```shell
@@ -148,14 +154,17 @@ depends_on = B, C
 user = user_name
 ...
 ```
+
 or
+
 ```ini
 [program:xxx]
 user = user_name:group_name
 ...
 ```
+
 - **stopsignal** list
-one or more stop signal can be configured. If more than one stopsignal is configured, when stoping the program, the supervisor will send the signals to the program one by one with interval "stopwaitsecs". If the program does not exit after all the signals sent to the program, the supervisor will kill the program
+  one or more stop signal can be configured. If more than one stopsignal is configured, when stoping the program, the supervisor will send the signals to the program one by one with interval "stopwaitsecs". If the program does not exit after all the signals sent to the program, the supervisor will kill the program
 
 - **restart_when_binary_changed**: a bool flag to control if the program should be restarted when the executable binary is changed
 
@@ -191,9 +200,8 @@ environment=VAR1="value1",VAR2="value2"
 
 ```
 
-
-
 ## Group
+
 the "group" section is supported and you can set "programs" item
 
 ## Events
@@ -229,7 +237,7 @@ stdout_logfile = test.log, /dev/stdout
 
 This supervisord has a default web GUI, you can start, stop & check the status of program from the GUI. Following picture shows the default web GUI:
 
-![alt text](https://github.com/ochinchina/supervisord/blob/master/go_supervisord_gui.png)
+![alt text](https://github.com/whtsky/supervisord/blob/master/go_supervisord_gui.png)
 
 # Usage from a Docker container
 

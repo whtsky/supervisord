@@ -1,13 +1,27 @@
-FROM golang:alpine AS builder
+FROM golang:1.14 as builder
 
-RUN apk add --no-cache --update git
+WORKDIR /app
 
-RUN go get -v -u github.com/ochinchina/supervisord
+COPY go.mod go.sum ./
 
-RUN CGO_ENABLED=0 GOOS=linux go build -a -ldflags "-linkmode external -extldflags -static" -o /usr/local/bin/supervisord github.com/ochinchina/supervisord
+RUN go mod download
 
-FROM scratch
+COPY . .
 
-COPY --from=builder /usr/local/bin/supervisord /usr/local/bin/supervisord
+RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -trimpath -o supervisord .
 
-ENTRYPOINT ["/usr/local/bin/supervisord"]
+
+FROM alpine:latest
+
+RUN apk --no-cache add ca-certificates
+
+WORKDIR /
+
+# Copy the Pre-built binary file from the previous stage
+COPY --from=builder /app/supervisord /
+
+# Expose port 8080 to the outside world
+EXPOSE 8080
+
+# Command to run the executable
+CMD ["/supervisord"]

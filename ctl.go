@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 	"github.com/jessevdk/go-flags"
-	"github.com/ochinchina/supervisord/config"
-	"github.com/ochinchina/supervisord/types"
-	"github.com/ochinchina/supervisord/xmlrpcclient"
+	"github.com/whtsky/supervisord/config"
+	"github.com/whtsky/supervisord/types"
+	"github.com/whtsky/supervisord/xmlrpcclient"
 	"net/http"
 	"os"
 	"strings"
